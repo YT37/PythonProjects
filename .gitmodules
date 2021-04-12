@@ -1,0 +1,3 @@
+[submodule "Account"]
+	path = Projects/Account
+	url = git@github.com:YT37/Account-Python.git
