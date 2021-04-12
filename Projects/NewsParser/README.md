@@ -1,4 +1,4 @@
-# NewsParser-Python
+# NewsParser
 - This project parses top 5 news from websites and speaks them.
 
 # Requirements

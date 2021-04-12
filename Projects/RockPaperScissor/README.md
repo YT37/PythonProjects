@@ -1,4 +1,4 @@
-# RockPaperScissor-Python
+# RockPaperScissor
 - This project is a game of Rock, Paper &amp; Scissor.
 
 # Requirements

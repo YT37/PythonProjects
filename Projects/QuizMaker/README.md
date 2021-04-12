@@ -1,4 +1,4 @@
-# QuizMaker-Pythton
+# QuizMaker
 - This project makes MCQ/True False Quizes from parsing JSON files.
 
 # Requirements
