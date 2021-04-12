@@ -1,16 +1,15 @@
-# TicTacToe-Python
-This project is a game of TicTacToe in Python.
+# AreaCalc
+- This project calculates the Area of diffrent shapes.
 
 # Requirements
  - Python 3.6 or up
- 
+
  # Instructions To Use
  - **Windows**
    ```
-   python TicTacToe.py
+   python AreaCalc.py
    ```
  - **Mac or Linux**
    ```
-   python3 TicTacToe.py
+   python3 AreaCalc.py
    ```
-

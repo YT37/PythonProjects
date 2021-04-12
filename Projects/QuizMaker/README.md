@@ -1,11 +1,12 @@
 # QuizMaker-Pythton
-This project makes MCQ/TrueFalse Quizes from parsing JSON files in Python.
+This project makes MCQ/True False Quizes from parsing JSON files.
 
 # Requirements
  - Python 3.6 or up
  
  # Instructions To Use
- - Make sure all files should be in the same folder before running.
+ - Make sure all files should be in the same folder before
+running.
  
  - **Windows**
    ```

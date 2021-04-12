@@ -1,23 +1,23 @@
 import math
 
 
-def getArea(shape):
-    if shape == 1:
+def main(shape):
+    if shape == 1 or shape.lower() == "rectangle":
         rectangleArea()
 
-    elif shape == 2:
+    elif shape == 2 or shape.lower() == "circle":
         circleArea()
 
-    elif shape == 3:
+    elif shape == 3 or shape.lower() == "parallelogram":
         parallelogramArea()
 
-    elif shape == 4:
+    elif shape == 4 or shape.lower() == "rhombus":
         rhombusArea()
 
-    elif shape == 5:
+    elif shape == 5 or shape.lower() == "triangle":
         triangleArea()
 
-    elif shape == 6:
+    elif shape == 6 or shape.lower() == "trapezoid":
         trapezoidArea()
 
     else:
@@ -78,11 +78,12 @@ def trapezoidArea():
     print("The Area Of The Trapezoid = ", area)
 
 
-getArea(
-    int(
-        input(
-            "Choose A Shape To Calcuae The Area Of : 1.Rectangle, 2.Circle, 3.Parallelogram, \n4.Rhombus, "
-            "5.Triangle Or 6.Trapezoid : "
+if __name__ == "__main__":
+    main(
+        int(
+            input(
+                "Choose A Shape To Calcuae The Area Of : 1.Rectangle, 2.Circle, 3.Parallelogram, \n4.Rhombus, "
+                "5.Triangle Or 6.Trapezoid : "
+            )
         )
     )
-)

@@ -1,5 +1,5 @@
-# TreeMaker
-- This project makes a Tree of the chosen size in Python.
+# Calculator
+- This snippet is a basic calculator.
 
 # Requirements
  - Python 3.6 or up
@@ -7,9 +7,9 @@
  # Instructions To Use
  - **Windows**
    ```
-   python TreeMaker.py
+   python Calculator.py
    ```
  - **Mac or Linux**
    ```
-   python3 TreeMaker.py
+   python3 Calculator.py
    ```

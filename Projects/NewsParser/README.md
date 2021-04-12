@@ -1,5 +1,5 @@
 # NewsParser-Python
-This project parses top 5 news from websites and speaks them in Python.
+This project parses top 5 news from websites and speaks them.
 
 # Requirements
  - Python 3.6 or up
@@ -20,6 +20,3 @@ This project parses top 5 news from websites and speaks them in Python.
    ```
    python3 NewsParser.py
    ```
-
-  
-  

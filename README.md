@@ -1,5 +1,5 @@
 # PythonProjects
- - These are projects & snippets.
+ - These are projects in python.
 
 # Requirements
  - They are inside their respective folders.

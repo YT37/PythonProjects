@@ -29,7 +29,7 @@ def calc(num1, num2, sym):
             print("0")
 
 
-def result():
+def main():
     valInt = False
 
     while not valInt:
@@ -54,5 +54,5 @@ def result():
         calc(num1, num2, sym)
 
 
-result()
-
+if __name__ == "__main__":
+    main()

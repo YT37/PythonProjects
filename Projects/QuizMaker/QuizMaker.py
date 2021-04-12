@@ -1,4 +1,5 @@
 import json
+import os
 import tkinter as tk
 from random import randint
 
@@ -26,7 +27,7 @@ def loadData(quizType):
         return k, v
 
 
-def titleMenu(root2=None):
+def main(root2=None):
     global answeredQues
     global score
 
@@ -259,7 +260,7 @@ def scoreCard():
         fg="white",
         bg="black",
         font=("Calbri", "18"),
-        command=lambda: titleMenu(root),
+        command=lambda: main(root),
     )
     restart.pack(side=tk.TOP, anchor="center", padx=10, pady=10)
 
@@ -277,4 +278,7 @@ def scoreCard():
 
 
 if __name__ == "__main__":
-    titleMenu()
+    if os.environ.get("DISPLAY", "") == "":
+        os.environ.__setitem__("DISPLAY", ":0.0")
+
+    main()

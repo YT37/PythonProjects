@@ -1,3 +1,0 @@
-pytz
-pyttsx3
-speech_recognition

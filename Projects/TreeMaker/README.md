@@ -1,5 +1,5 @@
-# AreaCalc
-- This project calculates the Area of diffrent shapes in Python.
+# TreeMaker
+- This snippet makes a tree of the chosen size.
 
 # Requirements
  - Python 3.6 or up
@@ -7,9 +7,9 @@
  # Instructions To Use
  - **Windows**
    ```
-   python AreaCalc.py
+   python TreeMaker.py
    ```
  - **Mac or Linux**
    ```
-   python3 AreaCalc.py
+   python3 TreeMaker.py
    ```
