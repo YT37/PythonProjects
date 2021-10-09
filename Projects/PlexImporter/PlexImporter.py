@@ -1,9 +1,11 @@
 import os
+import subprocess
+from sys import platform
 
 import requests
 from bs4 import BeautifulSoup
 
-# TODO: Change these path
+# TODO: Change These Paths
 plexTV = "/mnt/STORAGE/Plex/TV Shows"
 plexMovies = "/mnt/STORAGE/Plex/Movies"
 
@@ -42,7 +44,15 @@ try:
         os.chdir(showPath)
 
         files = os.listdir()
-        input(f"Move the files in ({showPath}) and press a key. ")
+
+        if platform == "linux" or platform == "linux2":
+            subprocess.Popen(["xdg-open", showPath])
+        elif platform == "darwin":
+            subprocess.Popen(["open", showPath])
+        elif platform == "win32":
+            subprocess.Popen(f"explorer '{showPath}'")
+
+        input(f"Move the files in opened location and press a key. ")
 
         for index in range(len(files)):
             files.sort()
@@ -74,7 +84,15 @@ try:
         os.chdir(moviePath)
 
         files = os.listdir()
-        input(f"Move the files in ({moviePath}) and press a key. ")
+
+        if platform == "linux" or platform == "linux2":
+            subprocess.Popen(["xdg-open", moviePath])
+        elif platform == "darwin":
+            subprocess.Popen(["open", moviePath])
+        elif platform == "win32":
+            subprocess.Popen(f"explorer '{moviePath}'")
+
+        input(f"Move the files in opened location and press a key. ")
 
         file = os.listdir()[0]
         os.rename(
@@ -89,4 +107,4 @@ try:
         exit()
 
 except Exception as e:
-    print(f"An Error Occured: {e}")
+    print(f"An Error Occurred: {e}")
