@@ -12,7 +12,7 @@
 - Add Youtube Data V3 API
 - Configure OAuth 2.0 Consent Screen and Publish it to Production
 - Place the Credentials file in the folder
-- Make sure to change Channel ID, Playlist ID & Secret File Path in YoutubePlaylistChannelSorter.py (Lines: 13-15)
+- Make sure to change Channel ID, Playlist ID & Secret File Path in YoutubePlaylistChannelSorter.py (Lines: 9-11)
 
 - **Windows, Mac and Linux**
   ``` 

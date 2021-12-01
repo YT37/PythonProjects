@@ -5,14 +5,14 @@ from tqdm import tqdm
 
 from Tools import PlaylistDataExtractor, Service, VideoDataExtractor
 
+# TODO: Change These
+channel_id = ""
+pl_id = ""
+secret_file = ""
+
 
 def main():
     print("Starting")
-
-    # TODO: Change These
-    channel_id = ""
-    pl_id = ""
-    secret_file = ""
 
     youtube = Service.create(secret_file)
     video_data = {}
@@ -94,4 +94,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if channel_id != "" or pl_id != "" or secret_file != "":
+        main()
+    else:
+        print(
+            "Please specify your Channel ID, Playlist ID & Secret File location."
+        )
