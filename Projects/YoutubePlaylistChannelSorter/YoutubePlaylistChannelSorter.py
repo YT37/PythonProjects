@@ -3,49 +3,92 @@ import os
 
 from tqdm import tqdm
 
-from Tools import PlaylistExtractor, Service
+from Tools import PlaylistDataExtractor, Service, VideoDataExtractor
 
 
 def main():
     print("Starting")
 
     # TODO: Change These
+    channel_id = ""
     pl_id = ""
     secret_file = ""
 
     youtube = Service.create(secret_file)
-    data = {}
+    video_data = {}
+    playlists_data = {}
 
     if not os.path.exists("PlaylistData.json"):
-        PlaylistExtractor.get_data(youtube, pl_id)
+        PlaylistDataExtractor.extract(youtube, channel_id)
 
     with open("PlaylistData.json") as file:
-        data = json.load(file)
+        playlists_data = json.load(file)
 
-    for channel_data in tqdm(data.items()):
-        pl_response = youtube.playlists().insert(
-            part="snippet",
-            body={
-                "snippet": {
-                    "title": channel_data[1]["name"]
-                },
-            },
-        ).execute()
-        pl_id = pl_response["id"]
+    if not os.path.exists("VideoData.json"):
+        VideoDataExtractor.extract(youtube, pl_id)
 
-        for vid_id in channel_data[1]["videos"]:
-            pl_response = youtube.playlistItems().insert(
-                part="snippet",
-                body={
-                    "snippet": {
-                        "playlistId": pl_id,
-                        "resourceId": {
-                            "kind": "youtube#video",
-                            "videoId": vid_id,
+    with open("VideoData.json") as file:
+        video_data = json.load(file)
+
+    for channel_data in tqdm(list(video_data.items())):
+        title = channel_data[1]["name"]
+
+        if title not in playlists_data:
+            try:
+                pl_response = youtube.playlists().insert(
+                    part="snippet",
+                    body={
+                        "snippet": {
+                            "title": title
                         },
                     },
-                },
-            ).execute()
+                ).execute()
+
+                new_pl_id = pl_response["id"]
+                playlists_data[title] = new_pl_id
+
+            except:
+                print(
+                    "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
+                )
+                break
+
+        else:
+            new_pl_id = playlists_data[title]
+
+        for vid_id in channel_data[1]["videos"]:
+            try:
+                pl_response = youtube.playlistItems().insert(
+                    part="snippet",
+                    body={
+                        "snippet": {
+                            "playlistId": new_pl_id,
+                            "resourceId": {
+                                "kind": "youtube#video",
+                                "videoId": vid_id,
+                            },
+                        },
+                    },
+                ).execute()
+
+            except:
+                print(
+                    "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
+                )
+                break
+
+            finally:
+                with open("PlaylistData.json", "w") as file:
+                    file.write(json.dumps(playlists_data, indent=4))
+
+        else:
+            video_data.pop(channel_data[0])
+            with open("VideoData.json", "w") as file:
+                file.write(json.dumps(video_data, indent=4))
+
+            continue
+
+        break
 
     print("Finished")
 
