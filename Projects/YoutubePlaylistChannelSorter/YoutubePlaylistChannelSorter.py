@@ -94,7 +94,7 @@ def main():
 
 
 if __name__ == "__main__":
-    if channel_id != "" or pl_id != "" or secret_file != "":
+    if (channel_id and pl_id and secret_file) != "":
         main()
     else:
         print(

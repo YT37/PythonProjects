@@ -1,2 +1,3 @@
 Token.pickle
 Secret.json
+__pycache__/
