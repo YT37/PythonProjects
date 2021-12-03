@@ -3,7 +3,7 @@ import os
 
 from tqdm import tqdm
 
-from Tools import PlaylistDataExtractor, Service, VideoDataExtractor
+from .Tools import PlaylistDataExtractor, Service, VideoDataExtractor
 
 # TODO: Change These
 channel_id = ""
