@@ -3,7 +3,7 @@ import os
 
 from tqdm import tqdm
 
-from .Tools import PlaylistDataExtractor, Service, VideoDataExtractor
+from tools import PlaylistDataExtractor, Service, VideoDataExtractor
 
 # TODO: Change These
 channel_id = ""
@@ -32,6 +32,7 @@ def main():
 
     for channel_data in tqdm(list(video_data.items())):
         title = channel_data[1]["name"]
+        videos = channel_data[1]["videos"]
 
         if title not in playlists_data:
             try:
@@ -56,7 +57,7 @@ def main():
         else:
             new_pl_id = playlists_data[title]
 
-        for vid_id in channel_data[1]["videos"]:
+        for vid_id in videos:
             try:
                 pl_response = youtube.playlistItems().insert(
                     part="snippet",
@@ -72,6 +73,12 @@ def main():
                 ).execute()
 
             except:
+                video_data[
+                    channel_data[0]]["videos"] = videos[videos.index(vid_id):]
+
+                with open("VideoData.json", "w") as file:
+                    file.write(json.dumps(video_data, indent=4))
+
                 print(
                     "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
                 )
