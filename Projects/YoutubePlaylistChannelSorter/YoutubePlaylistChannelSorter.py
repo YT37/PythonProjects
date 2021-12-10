@@ -12,23 +12,11 @@ secret_file = ""
 
 
 def main():
-    print("Starting")
+    print("Starting\n\n")
 
     youtube = Service.create(secret_file)
-    video_data = {}
-    playlists_data = {}
-
-    if not os.path.exists("PlaylistData.json"):
-        PlaylistDataExtractor.extract(youtube, channel_id)
-
-    with open("PlaylistData.json") as file:
-        playlists_data = json.load(file)
-
-    if not os.path.exists("VideoData.json"):
-        VideoDataExtractor.extract(youtube, pl_id)
-
-    with open("VideoData.json") as file:
-        video_data = json.load(file)
+    video_data = VideoDataExtractor.extract(youtube, pl_id)
+    playlists_data = PlaylistDataExtractor.extract(youtube, channel_id)
 
     for channel_data in tqdm(list(video_data.items())):
         title = channel_data[1]["name"]

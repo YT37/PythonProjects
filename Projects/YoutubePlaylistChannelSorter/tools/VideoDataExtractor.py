@@ -1,12 +1,17 @@
 import json
+import os
 
 from tqdm import tqdm
 
 
 def extract(youtube, pl_id):
-    nextPageToken = None
+    # if os.path.exists("VideoData.json"):
+    #     with open("VideoData.json") as file:
+    #         return json.load(file)
+
+    next_page_token = None
     data = {}
-    pageNo = 0
+    page_no = 0
 
     print("Starting Extracting")
     while True:
@@ -14,7 +19,7 @@ def extract(youtube, pl_id):
             part="contentDetails",
             playlistId=pl_id,
             maxResults=50,
-            pageToken=nextPageToken,
+            pageToken=next_page_token,
         ).execute()
         print("Fetched Playlist")
 
@@ -41,15 +46,18 @@ def extract(youtube, pl_id):
                 data[channel_id]["videos"] = []
                 data[channel_id]["videos"].append(vid_id)
 
-        pageNo += 1
-        print(f"Next Page ({pageNo})")
-        nextPageToken = pl_response.get('nextPageToken')
+        page_no += 1
+        print(f"\nNext Page ({page_no})")
+        next_page_token = pl_response.get("nextPageToken")
 
-        if not nextPageToken:
+        if not next_page_token:
             break
 
     with open("VideoData.json", "w") as file:
         file.write(json.dumps(data, indent=4))
         print("Wrote Data to File")
 
-    print("Finished Extracting")
+        print("\nFinished Extracting")
+        print(f"\nTotal No. of Videos: {len(vid_ids)}\n\n")
+
+        return data

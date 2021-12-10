@@ -31,6 +31,6 @@ def create(secret_file):
             pickle.dump(creds, token)
 
     service = build("youtube", "v3", credentials=creds)
-    print("Created Service")
+    print("Created Service\n\n")
 
     return service
