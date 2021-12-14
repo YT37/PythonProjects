@@ -1,5 +1,5 @@
 # YoutubePlaylistChannelSorter
-- This project extracts all the data from the videos in YT Playlists & Makes Sorts them into different playlists for different Channels.
+- This project extracts all the data from the videos in YT Playlists & Sorts them into different playlists for different Channels.
 
 # Requirements
 - Python 3.6 or up

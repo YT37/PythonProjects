@@ -1,6 +1,7 @@
 import json
 import os
 
+import isodate
 from tqdm import tqdm
 
 
@@ -30,25 +31,21 @@ def extract(youtube, pl_id):
 
         for vid_id in tqdm(vid_ids):
             vid_response = youtube.videos().list(
-                part="snippet",
+                part="contentDetails",
                 id=vid_id,
             ).execute()
 
-            vid_snippet = vid_response["items"][0]["snippet"]
-            channel_id = vid_snippet["channelId"]
+            vid_details = vid_response["items"][0]["contentDetails"]
+            duration = (isodate.parse_duration(
+                vid_details["duration"])).total_seconds()
 
-            if (channel_id not in data.keys()):
-                data[channel_id] = {"name": vid_snippet["channelTitle"]}
-
-            if ("videos" in data[channel_id].keys()):
-                data[channel_id]["videos"].append(vid_id)
-            else:
-                data[channel_id]["videos"] = []
-                data[channel_id]["videos"].append(vid_id)
+            data[vid_id] = duration
 
         page_no += 1
         print(f"\nNext Page ({page_no})")
         next_page_token = pl_response.get("nextPageToken")
+
+        data = dict(sorted(data.items(), key=lambda item: item[1]))
 
         if not next_page_token:
             break
@@ -58,6 +55,6 @@ def extract(youtube, pl_id):
         print("Wrote Data to File")
 
         print("\nFinished Extracting")
-        print(f"\nTotal No. of Videos: {len(vid_ids)}\n\n")
+        print(f"\nTotal No. of Videos: {len(data.keys())}\n\n")
 
         return data
