@@ -1,10 +1,11 @@
-# YoutubePlaylistChannelSorter
-- This project extracts all the data from the videos in YT Playlists & Sorts them into different playlists for different Channels.
+# YoutubeSorter
+- This project extracts all the data from the videos in a YT Playlists & Sorts them according to Channel or Duration.
 
 # Requirements
 - Python 3.6 or up
-- Google API
 - Google OAuth Lib
+- Google API
+- ISODate
 - TQDM
 
 # Instructions
@@ -12,7 +13,7 @@
 - Add Youtube Data V3 API
 - Configure OAuth 2.0 Consent Screen and Publish it to Production
 - Place the Credentials file in the folder
-- Make sure to change Channel ID, Playlist ID & Secret File Path in YoutubePlaylistChannelSorter.py (Lines: 9-11)
+- Make sure to change Channel ID, Playlist ID & Secret File Path in YoutubeSorter.py (Lines: 4-6)
 
 - **Windows, Mac and Linux**
   ``` 
@@ -20,9 +21,9 @@
   ```
 - **Windows**
   ```
-  python YoutubePlaylistChannelSorter.py
+  python YoutubeSorter.py
   ```
 - **Mac or Linux**
   ```
-  python3 YoutubePlaylistChannelSorter.py
+  python3 YoutubeSorter.py
   ```

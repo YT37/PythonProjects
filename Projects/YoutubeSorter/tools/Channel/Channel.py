@@ -2,18 +2,11 @@ import json
 
 from tqdm import tqdm
 
-from tools import PlaylistDataExtractor, Service, VideoDataExtractor
-
-# TODO: Change These
-channel_id = ""
-pl_id = ""
-secret_file = ""
+from .. import Service
+from . import PlaylistDataExtractor, VideoDataExtractor
 
 
-def main():
-    print("Starting\n\n")
-
-    youtube = Service.create(secret_file)
+def sort(youtube, channel_id, pl_id):
     video_data = VideoDataExtractor.extract(youtube, pl_id)
     playlists_data = PlaylistDataExtractor.extract(youtube, channel_id)
 
@@ -35,10 +28,14 @@ def main():
                 new_pl_id = pl_response["id"]
                 playlists_data[title] = new_pl_id
 
-            except:
-                print(
-                    "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
-                )
+            except Exception as e:
+                if e.args[0]["status"] == "403":
+                    print(
+                        "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
+                    )
+                else:
+                    print(e)
+
                 break
 
         else:
@@ -59,16 +56,21 @@ def main():
                     },
                 ).execute()
 
-            except:
+            except Exception as e:
+
                 video_data[
                     channel_data[0]]["videos"] = videos[videos.index(vid_id):]
 
                 with open("VideoData.json", "w") as file:
                     file.write(json.dumps(video_data, indent=4))
 
-                print(
-                    "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
-                )
+                if e.args[0]["status"] == "403":
+                    print(
+                        "The API quota has exceeded. Please try after 24 Hrs or Create a new project (Delete Token.pickle)"
+                    )
+                else:
+                    print(e)
+
                 break
 
             finally:
@@ -83,14 +85,3 @@ def main():
             continue
 
         break
-
-    print("Finished")
-
-
-if __name__ == "__main__":
-    if (channel_id and pl_id and secret_file) != "":
-        main()
-    else:
-        print(
-            "Please specify your Channel ID, Playlist ID & Secret File location."
-        )
