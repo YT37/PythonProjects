@@ -4,7 +4,6 @@ from hashlib import new
 
 from tqdm import tqdm
 
-from .. import Service
 from . import VideoDataExtractor
 
 
@@ -49,7 +48,6 @@ def sort(youtube, pl_id):
                 file.write(json.dumps(pl_response, indent=4))
 
         for video in tqdm(list(video_data.keys())):
-            print(video)
             youtube.playlistItems().insert(
                 part="snippet",
                 body={

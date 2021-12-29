@@ -2,7 +2,6 @@ import json
 
 from tqdm import tqdm
 
-from .. import Service
 from . import PlaylistDataExtractor, VideoDataExtractor
 
 
