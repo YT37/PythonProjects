@@ -12,9 +12,23 @@ api.sync()"""
 # Get Projects
 """print(api.state["projects"])"""
 
-# Add Tasks
-"""main_task = api.items.add("Playlists")
+# Add Tasks to Project
+"""project = api.projects.add("Project Name Here")
+api.commit()
 
+tasks = []
+with open("Tasks.json") as file:
+    tasks = json.load(file)["tasks"]
+
+print(f"\nNo. of Tasks: {len(tasks)}\n")
+
+for task in tqdm(tasks):
+    api.items.add(task, project_id=project["id"])
+    api.commit()"""
+
+# Add Subtasks
+"""main_task = api.items.add("Task Name Here")
+](
 tasks = []
 with open("Tasks.json") as file:
     tasks = json.load(file)["tasks"]
