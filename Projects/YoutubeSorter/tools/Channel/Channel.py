@@ -60,7 +60,7 @@ def sort(youtube, channel_id, pl_id):
                 video_data[
                     channel_data[0]]["videos"] = videos[videos.index(vid_id):]
 
-                with open("VideoData.json", "w") as file:
+                with open("VideoDataChannel.json", "w") as file:
                     file.write(json.dumps(video_data, indent=4))
 
                 if e.args[0]["status"] == "403":
@@ -78,7 +78,7 @@ def sort(youtube, channel_id, pl_id):
 
         else:
             video_data.pop(channel_data[0])
-            with open("VideoData.json", "w") as file:
+            with open("VideoDataChannel.json", "w") as file:
                 file.write(json.dumps(video_data, indent=4))
 
             continue

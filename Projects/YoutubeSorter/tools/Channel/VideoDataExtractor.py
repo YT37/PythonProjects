@@ -5,13 +5,14 @@ from tqdm import tqdm
 
 
 def extract(youtube, pl_id):
-    if os.path.exists("VideoData.json"):
-        with open("VideoData.json") as file:
+    if os.path.exists("VideoDataChannel.json"):
+        with open("VideoDataChannel.json") as file:
             return json.load(file)
 
     next_page_token = None
     data = {}
     page_no = 0
+    vids = []
 
     print("Starting Extracting")
     while True:
@@ -24,8 +25,11 @@ def extract(youtube, pl_id):
         print("Fetched Playlist")
 
         vid_ids = []
-        for vid in pl_response["items"]:
-            vid_ids.append(vid["contentDetails"]["videoId"])
+        for video in pl_response["items"]:
+            vid = video["contentDetails"]["videoId"]
+
+            vid_ids.append(vid)
+            vids.append(vid)
         print("Fetched Video ID's")
 
         for vid_id in tqdm(vid_ids):
@@ -53,11 +57,11 @@ def extract(youtube, pl_id):
         if not next_page_token:
             break
 
-    with open("VideoData.json", "w") as file:
+    with open("VideoDataChannel.json", "w") as file:
         file.write(json.dumps(data, indent=4))
         print("Wrote Data to File")
 
         print("\nFinished Extracting")
-        print(f"\nTotal No. of Videos: {len(vid_ids)}\n\n")
+        print(f"\nTotal No. of Videos: {len(vids)}\n\n")
 
         return data

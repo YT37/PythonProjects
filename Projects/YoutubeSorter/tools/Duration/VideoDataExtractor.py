@@ -6,8 +6,8 @@ from tqdm import tqdm
 
 
 def extract(youtube, pl_id):
-    if os.path.exists("VideoData.json"):
-        with open("VideoData.json") as file:
+    if os.path.exists("VideoDataDuration.json"):
+        with open("VideoDataDuration.json") as file:
             return json.load(file)
 
     next_page_token = None
@@ -50,7 +50,7 @@ def extract(youtube, pl_id):
         if not next_page_token:
             break
 
-    with open("VideoData.json", "w") as file:
+    with open("VideoDataDuration.json", "w") as file:
         file.write(json.dumps(data, indent=4))
         print("Wrote Data to File")
 

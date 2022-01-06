@@ -62,7 +62,7 @@ def sort(youtube, pl_id):
             ).execute()
 
             video_data.pop(video)
-            with open("VideoData.json", "w") as file:
+            with open("VideoDataDuration.json", "w") as file:
                 file.write(json.dumps(video_data, indent=4))
 
     except Exception as e:

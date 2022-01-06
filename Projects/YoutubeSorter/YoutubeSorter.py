@@ -1,3 +1,5 @@
+import os
+
 from tools import Channel, Duration, Service
 
 # TODO: Change These
@@ -21,13 +23,21 @@ def main():
     elif sort_type == "2" or sort_type == "duration":
         channel_sort = False
     else:
-        print("Please enter  the correct input.")
+        print("Please enter the correct input.")
         return
 
     if channel_sort:
         Channel.sort(youtube, channel_id, pl_id)
+        with open("VideoDataChannel.json") as file:
+            if file.read() == "{}":
+                os.remove("VideoDataChannel.json")
+                os.remove("PlaylistData.json")
     else:
         Duration.sort(youtube, pl_id)
+
+        with open("VideoDataDuration.json") as file:
+            if file.read() == "{}":
+                os.remove("VideoDataDuration.json")
 
     print("Finished")
 
