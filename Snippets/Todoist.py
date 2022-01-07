@@ -39,6 +39,17 @@ for task in tqdm(tasks):
     api.items.add(task, parent_id=main_task["id"])
     api.commit()"""
 
+# Get Project Data by ID
+"""project = api.projects.get_data("Task ID Here")
+items = project["items"]
+
+content = []
+for item in items:
+    content.append(item["content"])
+
+with open("Tasks.json", "w") as f:
+    f.write(json.dumps({"tasks": content}))"""
+
 # Move Tasks
 """project_id = ""
 
