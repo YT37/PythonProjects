@@ -38,6 +38,7 @@ def main():
         with open("VideoDataDuration.json") as file:
             if file.read() == "{}":
                 os.remove("VideoDataDuration.json")
+                os.remove("PlaylistData.json")
 
     print("Finished")
 
