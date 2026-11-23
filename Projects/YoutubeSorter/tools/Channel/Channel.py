@@ -7,7 +7,7 @@ from . import PlaylistDataExtractor, VideoDataExtractor
 
 def sort(youtube, channel_id, pl_id):
     video_data = VideoDataExtractor.extract(youtube, pl_id)
-    playlists_data = PlaylistDataExtractor.extract(youtube, channel_id)
+    playlists_data = PlaylistDataExtractor.extract(youtube)
 
     for channel_data in tqdm(list(video_data.items())):
         title = channel_data[1]["name"]

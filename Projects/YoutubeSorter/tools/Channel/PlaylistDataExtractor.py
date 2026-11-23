@@ -2,7 +2,7 @@ import json
 import os
 
 
-def extract(youtube, channel_id):
+def extract(youtube):
     if os.path.exists("PlaylistData.json"):
         with open("PlaylistData.json") as file:
             return json.load(file)
@@ -16,7 +16,7 @@ def extract(youtube, channel_id):
     while True:
         channel_response = youtube.playlists().list(
             part="snippet, contentDetails",
-            channelId=channel_id,
+            mine=True,
             maxResults=50,
             pageToken=next_page_token,
         ).execute()

@@ -37,18 +37,21 @@ def extract(youtube, pl_id):
                 part="snippet",
                 id=vid_id,
             ).execute()
+            
+            try:
+                vid_snippet = vid_response["items"][0]["snippet"]
+                channel_id = vid_snippet["channelId"]
 
-            vid_snippet = vid_response["items"][0]["snippet"]
-            channel_id = vid_snippet["channelId"]
+                if (channel_id not in data.keys()):
+                    data[channel_id] = {"name": vid_snippet["channelTitle"]}
 
-            if (channel_id not in data.keys()):
-                data[channel_id] = {"name": vid_snippet["channelTitle"]}
-
-            if ("videos" in data[channel_id].keys()):
-                data[channel_id]["videos"].append(vid_id)
-            else:
-                data[channel_id]["videos"] = []
-                data[channel_id]["videos"].append(vid_id)
+                if ("videos" in data[channel_id].keys()):
+                    data[channel_id]["videos"].append(vid_id)
+                else:
+                    data[channel_id]["videos"] = []
+                    data[channel_id]["videos"].append(vid_id)
+            except:
+                pass
 
         page_no += 1
         print(f"\nNext Page ({page_no})")
