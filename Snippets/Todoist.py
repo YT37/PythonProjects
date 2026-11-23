@@ -1,16 +1,19 @@
 import json
 
-from todoist.api import TodoistAPI
+from todoist_api_python.api import TodoistAPI
 from tqdm import tqdm
 
 print("Starting")
 
 # Setup API
-"""api = TodoistAPI("API Key Here")
-api.sync()"""
+"""
+api = TodoistAPI("API Key Here")
+"""
 
 # Get Projects
-"""print(api.state["projects"])"""
+"""
+print(api.get_projects())
+"""
 
 # Add Tasks to Project
 """project = api.projects.add("Project Name Here")
@@ -40,15 +43,16 @@ for task in tqdm(tasks):
     api.commit()"""
 
 # Get Project Data by ID
-"""project = api.projects.get_data("Task ID Here")
-items = project["items"]
+"""
+tasks = api.get_tasks(project_id="Project Name Here")
 
 content = []
-for item in items:
-    content.append(item["content"])
+for task in tasks:
+    content.append(task.content)
 
 with open("Tasks.json", "w") as f:
-    f.write(json.dumps({"tasks": content}))"""
+    f.write(json.dumps({"tasks": content}))
+"""
 
 # Move Tasks
 """project_id = ""
