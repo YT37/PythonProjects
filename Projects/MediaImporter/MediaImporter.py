@@ -6,13 +6,17 @@ import requests
 from bs4 import BeautifulSoup
 
 # TODO: Change These Paths
-plexTV = "/mnt/STORAGE/Plex/TV Shows"
-plexMovies = "/mnt/STORAGE/Plex/Movies"
+tv = "/mnt/STORAGE/Media/TV Shows"
+movies = "/mnt/STORAGE/Media/Movies"
 
 try:
-    type = input(
-        "What do you want to import to Plex? (1. TV Show, 2. Movie): ",
-    ).lower().strip()
+    type = (
+        input(
+            "What do you want to import? (1. TV Show, 2. Movie): ",
+        )
+        .lower()
+        .strip()
+    )
 
     if type == "tv show" or type == "show" or type == "1":
         link = input(
@@ -20,12 +24,20 @@ try:
         )
         info = BeautifulSoup(requests.get(link).text, "lxml")
 
-        id = info.findChild(
-            class_="list-group-item clearfix").text.split("\n")[2].strip()
+        id = (
+            info.findChild(class_="list-group-item clearfix")
+            .text.split("\n")[2]
+            .strip()
+        )
 
         title = info.findChild(id="series_title").text.strip()
-        year = info.findChildren(class_="list-group-item-text")[-1].text.strip(
-        ).split(" ")[1].strip()
+        year = (
+            info.findChildren(class_="list-group-item clearfix")[2]
+            .a.get_text()
+            .strip()
+            .split(",")[1]
+            .strip()
+        )
 
         season = int(input("Enter Season No.: "))
 
@@ -34,13 +46,15 @@ try:
             "lxml",
         )
         episodes = [
-            title.text.strip() for headlines in episodeInfo.find_all("td")
+            title.text.strip()
+            for headlines in episodeInfo.find_all("td")
             for title in headlines.find_all("a")
         ]
 
-        showPath = f"{plexTV}/{title} ({year}) {{tvdb-{id}}}/Season {season}/"
+        showPath = f"{tv}/{title} ({year}) {{tvdb-{id}}}/Season {season}/"
 
-        if not os.path.exists(showPath): os.makedirs(showPath)
+        if not os.path.exists(showPath):
+            os.makedirs(showPath)
         os.chdir(showPath)
 
         files = os.listdir()
@@ -70,17 +84,25 @@ try:
         )
         info = BeautifulSoup(requests.get(link).text, "lxml")
 
-        id = info.findChild(
-            class_="list-group-item clearfix").text.split("\n")[2].strip()
+        id = (
+            info.findChild(class_="list-group-item clearfix")
+            .text.split("\n")[2]
+            .strip()
+        )
 
         title = info.findChild(id="series_title").text.strip()
-        year = info.findChildren(
-            class_="list-group-item clearfix")[2].text.strip().split(
-                "\n")[3].split(",")[1].strip()
+        year = (
+            info.findChildren(class_="list-group-item clearfix")[2]
+            .text.strip()
+            .split("\n")[3]
+            .split(",")[1]
+            .strip()
+        )
 
-        moviePath = f"{plexMovies}/{title} ({year}) {{tvdb-{id}}}/"
+        moviePath = f"{movies}/{title} ({year}) {{tvdb-{id}}}/"
 
-        if not os.path.exists(moviePath): os.makedirs(moviePath)
+        if not os.path.exists(moviePath):
+            os.makedirs(moviePath)
         os.chdir(moviePath)
 
         files = os.listdir()
